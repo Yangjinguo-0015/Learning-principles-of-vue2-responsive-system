@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      div {
+        margin: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div>
+        <button @click="handleClick">显示文字</button>
+      </div>
+      <div v-show="isShow">点击出现文字</div>
+      <div>
+        <input type="text" v-model="value" />
+        <span>input框的值:</span>
+        <span>{{value}}</span>
+      </div>
+      <div>
+        <button @click="changeStatus">{{switch}}</button>
+        <input
+          type="checkbox"
+          name="switch"
+          id=""
+          v-bind:checked="checked"
+          @change="changeStatus"
+        />
+        {{checked}}
+      </div>
+      <div>
+        <form action="">
+          <label
+            ><input
+              type="radio"
+              name="sex"
+              value="woman"
+              @change="handleChange"
+            />woman</label
+          >
+          <label
+            ><input
+              type="radio"
+              name="sex"
+              value="man"
+              @change="handleChange"
+            />man</label
+          >
+        </form>
+        <div>
+          <span>单选框选中值:</span>
+          <span>{{radio}}</span>
+        </div>
+      </div>
+      <div>
+        <span>当前时间是:</span>
+        <span>{{currentTime}}</span>
+      </div>
+    </div>
+    <script type="module">
+      import Mvvm from "./Mvvm.js";
+      const vm = new Mvvm({
+        el: "#app",
+        data() {
+          return {
+            isShow: false,
+            currentTime: new Date().toLocaleString(),
+            value: "",
+            switch: "ON",
+            checked: false,
+            radio: "",
+          };
+        },
+        methods: {
+          handleClick() {
+            this.isShow = !this.isShow;
+          },
+          handleChange(e) {
+            this.radio = e.target.value;
+          },
+          changeStatus() {
+            this.switch = this.switch == "OFF" ? "ON" : "OFF";
+            this.checked = this.switch == "OFF" ? true : false;
+          },
+        },
+      });
+      console.log("vm:", vm);
+    </script>
+  </body>
+</html>
